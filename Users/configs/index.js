@@ -8,8 +8,8 @@ module.exports= {
             password : process.env.DATABASE_PASSWORD ,
         } ,
         redis : {
-            REDIS_HOST: process.env.REDIS_HOST || '127.0.0.1',
-            REDIS_PORT: process.env.REDIS_PORT || 6379,
+            REDIS_HOST: process.env.REDIS_HOST ,
+            REDIS_PORT: process.env.REDIS_PORT ,
             REDIS_PASSWORD: process.env.REDIS_PASSWORD || '',
         }  ,
         Authorization: {

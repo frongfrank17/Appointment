@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  # -----------------------
+  # MongoDB
+  # -----------------------
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  # -----------------------
+  # Redis
+  # -----------------------
+  redis:
+    image: redis:7.0
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    command: [ "redis-server", "--save", "", "--appendonly", "no" ]
+    # ^ Example config: disable RDB/AOF for ephemeral usage
+    #   Adjust accordingly for production
+
+  # -----------------------
+  # User Service
+  # -----------------------
+  user_service:
+    build: ./Users    # Path to user_service Dockerfile
+    container_name: user_service
+    depends_on:
+      - mongodb
+      - redis
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: "production"
+      DATABASE_HOST: mongodb
+      DATABASE_PORT: 27017
+      DATABASE_NAME: "appointment"
+      REDIS_HOST: "redis"
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ""
+      
+      APP_NAME: "User Service"
+      ACC_JWT_KEY: "secret_key_password_jwt"
+      REFR_JWT_KEY: "refresh_key_password_jwt"
+      ACC_KEY_T: "600000"
+      REFR_KEY_T: "1200000"
+
+
+  # -----------------------
+  # Appointment Service
+  # -----------------------
+  appointment_service:
+    build: ./Appointment   # Path to appointment_service Dockerfile
+    container_name: appointment_service
+    depends_on:
+      - mongodb
+      - redis
+    ports:
+      - "3002:3002"
+    environment:
+      # Example environment variables (customize as needed)
+      DATABASE_HOST: mongodb
+      DATABASE_PORT: 27017
+      DATABASE_NAME: "appointment"
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      NODE_ENV: "production"
+      APP_NAME: "Appointment Service"
+      ACC_JWT_KEY: "secret_key_password_jwt"
+      REFR_JWT_KEY: "refresh_key_password_jwt"
+      API_USERS: "http://localhost:3001"
+volumes:
+  mongo_data:

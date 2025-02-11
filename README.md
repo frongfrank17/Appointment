@@ -66,7 +66,8 @@ POST localhost:3001/auth/login
 ```
 ## Appointment Serivce
 ### Concept
-![alt text](image-3.png)
+![alt text](image-4.png)
+
 ```
  - ใช้ AccessToken เพื่อ Appointment Serivce
  - ใช้ Redis เพื่อ Verfiy Queue ของแพทย์
@@ -99,6 +100,7 @@ POST localhost:3001/auth/login
 }
 ```
 ```
+Note
  - medic_id คือ username ของ user ที่เป็น type  1 ถ้าไม่มัีให้สร้างก่อนใช้งาน
  - ในตัวอย่างคือ user > timber1 จะ booking medic > Dr smith
 ```
@@ -131,3 +133,7 @@ POST localhost:3001/auth/login
                 }
         }
 ```
+
+
+## Deployment
+

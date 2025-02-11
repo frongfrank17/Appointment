@@ -1,6 +1,6 @@
 // /services/authen.service.js
 const Authen = require('../modules/authentication.module');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const configs = require('../configs/index')
 const jwt = require('jsonwebtoken');
 async function createAuthen(data) {

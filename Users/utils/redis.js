@@ -1,7 +1,7 @@
 // /utils/redis.js
-const redis = require('redis');
+const { redisClient} = require('../database/redis');
 const configs = require('../configs/index')
-const redisClient = redis.createClient();
+
 
 redisClient.on('error', (err) => console.error('Redis error:', err));
 

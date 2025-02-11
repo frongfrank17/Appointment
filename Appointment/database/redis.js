@@ -4,8 +4,9 @@ const config = require('../configs/index');
 
 // Configure the Redis client
 const redisClient = redis.createClient({
-  host: config.setting.redis.REDIS_HOST,
-  port: config.setting.redis.REDIS_PORT,
+
+  socket: { host: config.setting.redis.REDIS_HOST, port: config.setting.redis.REDIS_PORT },
+
   password: config.setting.redis.REDIS_PASSWORD || undefined,
 });
 

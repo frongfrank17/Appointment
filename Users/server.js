@@ -3,7 +3,7 @@ if (process.env.NODE_ENV != "production") {
     require('dotenv').config()
 }  
 const conf = require('./configs/index')
-
+console.log(conf.setting.redis)
 //require('dotenv').config()
 const express = require('express')
 const app = express()

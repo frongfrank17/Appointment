@@ -4,8 +4,8 @@ const config = require('../configs/index');
 
 // Configure the Redis client
 const redisClient = redis.createClient({
-  host: config.setting.redis.REDIS_HOST,
-  port: config.setting.redis.REDIS_PORT,
+
+  socket: { host: config.setting.redis.REDIS_HOST, port: config.setting.redis.REDIS_PORT },
   password: config.setting.redis.REDIS_PASSWORD || undefined,
 });
 
@@ -15,12 +15,13 @@ redisClient.on('connect', () => {
 });
 
 redisClient.on('error', (err) => {
+  console.log(config.setting.redis.REDIS_HOST)
   console.error('Redis error:', err);
 });
 
 async function connectRedis() {
   try {
-    await redisClient.connect();  // Redis client now supports async connect
+    await redisClient.connect()// Redis client now supports async connect
     console.log('Redis connection established');
   } catch (error) {
     console.error('Failed to connect to Redis:', error.message);

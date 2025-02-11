@@ -50,5 +50,23 @@ module.exports = {
             return res.status(500).send({"Message" : error.stack})
         }
         
+    } ,
+    getBookings : async (req , res) => {
+        try {
+            let result = await appointmentService.GetBookings()
+
+            res.status(200).send({"Messsage" : "Book List" ,data : result})
+        } catch (error) {
+            return res.status(500).send({"Message" : error.message})
+        }
+    } ,
+    getBookingByOne : async (req , res) => {
+        try {
+                let _id = req.params
+
+            res.status(200).send({"Messsage" : "Book List"})
+        } catch (error) {
+            return res.status(500).send({"Message" : error.message})
+        }
     }
 }

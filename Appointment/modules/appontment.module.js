@@ -23,7 +23,7 @@ const MedicSchema = new mongoose.Schema({
 const userSchema = new mongoose.Schema({
     username :   { type: String, required: true }, 
     fullname: { type: String, required: true },
-    email: { type: String, required: false , unique: true , default :"-" },
+    email: { type: String, required: false , default :"-" },
     birthdate : {type : Date , required: true } ,  
     phone: { type: String, required: true },
   })

@@ -1,6 +1,48 @@
 # **Appointment Microservice**
+## Clean Architecture
+```
+-Rest API
+|_ <Project NAME>
+|___controllers คือ รับ input และประกอบ logic
+|___config คือ config ทุกอย่างที่ Projectต้องใช้งาน
+|___database คือ database ที่ต้องใช้งาน เช่น mongodb , postgres , redis เป็นต้น  หรือ mq
+|___module คือ Shema Database
+|___service คือ Logic
+|___route คือ manager route 
+|_____index.js คือinterface ที่ server เรียกใช้
+|_____<project>.js คือ route ของ project
+|_____<project>.js คือ route ของ project
+|___test คือ Unit Test
+|___utils คือ tool ที่ใช้บ่อยๆ เช่น reponse , jwt เป็น
+|___middleware คือ verfiy token และ user 
+|___server.js
+
+- Batch
+|_ <Project NAME>
+|___controllers คือ รับ input และประกอบ logic
+|___config คือ config ทุกอย่างที่ Projectต้องใช้งาน
+|___database คือ database ที่ต้องใช้งาน เช่น mongodb , postgres , redis เป็นต้น  หรือ mq
+|___module คือ Shema Database
+|___service คือ Logic
+|___test คือ Unit Test
+|___utils คือ tool ที่ใช้บ่อยๆ เช่น reponse , jwt เป็น
+|___server.js
+```
+
 # Overview Architecture
 ![alt text](image.png)
+## How to Running
+```bash
+git clone https://github.com/frongfrank17/Appointment.git
+cd ./Appointment
+```
+```bash
+docker-compose up --build -d
+```
+```
+ - user service http://localhost:3001
+ - appointment service  http://localhost:3001
+```
 ## **Users Service**
 ### Tool
  - Redis 
@@ -25,8 +67,7 @@ _________________________________
 |----users[Col] ข้อมูลโดยละเอียด    |
 |________________________________|
 ```
-
-## API ENDPOINT
+### API ENDPOINT
 ### register
 ```
 POST localhost:3001/users/register*
@@ -80,12 +121,12 @@ _________________________________________
 |----appointment[Col]                   |
 |_______________________________________|
 ```
-## API ENDPOINT
+### API ENDPOINT
 
 ```
 POST localhost:3001/auth/login
 ```
-####  Request
+ ####  Request
 ```json
 {
     "Authoirzation" : "Bearer <Access_token ของ user ที่จะทำการ Booking>"
@@ -134,6 +175,11 @@ Note
         }
 ```
 
-
-## Deployment
-
+## step 
+- /users/register
+    - register ทั้ง user type 0 (แพทย์) 1 (คนทั่วไป)
+- /auth/login
+- /appointment/booking 
+    - ใช้ access-token ของคนทั่วไปในการนัดหมาย
+- /appointment/booking/list
+    - ใช้ access-token
